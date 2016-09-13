@@ -20,6 +20,11 @@ const int stopM = 0;
 const int slow = 90;
 const int fast = 220;
 
+// Other constant
+// const int dTime = ???
+// const int bufffer = ???
+// const int threshold = ???
+
 void setup() {
   // set motor pin
   pinMode(pwmA, OUTPUT);
