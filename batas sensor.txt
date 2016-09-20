@@ -1,0 +1,27 @@
+batas atas = putih
+batas bawah = hitam
+
+
+sensor 1 (kuning) :
+batas atas 80
+batas bawah 25
+
+sensor 2 (ungu) :
+batas atas 100
+batas bawah 25
+
+sensor 3 (biru) :
+batas atas 85
+batas bawah 15
+
+sensor 4 (hijau) :
+batas atas 170
+batas bawah 50
+
+sensor 5 (abu2) :
+batas atas 170
+batas bawah 60
+
+sensor 6 (oren) :
+batas atas 210
+batas bawah 65

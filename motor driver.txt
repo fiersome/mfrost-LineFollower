@@ -1,0 +1,7 @@
+abu2 = 5 v
+putih = pin 0 ->
+coklat = pin 1
+hijau = gnd
+biru = 5 v
+abu2 = pin 3
+kuning pin 4

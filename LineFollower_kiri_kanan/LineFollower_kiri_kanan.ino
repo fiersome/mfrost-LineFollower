@@ -92,7 +92,8 @@ void loop() {
    Serial.println("turn right");
    turnRight(normal, slow);
   }
-
+  
+  // delay(dTime);
 }
 
 // speed1 < speed2
