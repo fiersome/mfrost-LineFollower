@@ -17,6 +17,10 @@ const int sensor6 = A5;
 // other variable
 const int batas = 20;
 
+int state1 = 0;
+int state2 = 0;
+int currentState = 1;
+
 int s1 = 0;
 int s2 = 0;
 int s3 = 0;
@@ -56,7 +60,10 @@ void loop() {
   //Serial.println(s5);
   //Serial.println(s6);
 
-  followLine(checkInput());
+  int result = checkInput();
+  updateState(result); 
+  followLine(result);
+  checkState();
 
   Serial.println("------ ");
  
@@ -138,6 +145,36 @@ void followLine(int input) {
       Serial.println("belok kanan 90 derajat");
     }
     else if(input == B111111) {
-      Serial.println("berhenti"); 
+      if(previousState() != B111111) {
+        Serial.println("Menjalani State Sebelumnya");
+      }
+      else {
+        Serial.println("berhenti");  
+      }
     }
   }
+
+  void checkState() {
+    currentState++;
+    if(currentState > 2) {
+      currentState = 1;
+    }
+  }
+
+void updateState(int value) {
+  if(currentState == 1) {
+    state1 = value;
+    }
+  else {
+    state2 = value;
+    }
+}
+
+int previousState() {
+  if(currentState == 1) {
+    return state2;
+    }
+  else {
+    return state1;
+    }
+}
