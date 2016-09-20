@@ -1,10 +1,12 @@
 // Motor A
 //const int motorKiriA = 3;
 //const int motorKananB = 4;
+//const int enKiri = 
 
 // Motor B
 //const int motorKananA = 0;
 //const int motorKananB = 1;
+//const int enKanan = 
 
 // IR sensor
 const int sensor1 = A0;
@@ -15,10 +17,11 @@ const int sensor5 = A4;
 const int sensor6 = A5;
 
 // other variable
-const int batas = 20;
+const int batas = 25;
 
 int state1 = 0;
 int state2 = 0;
+int state3 = 0;
 int currentState = 1;
 
 int s1 = 0;
@@ -37,11 +40,6 @@ void setup() {
 
   // for serial communication
   Serial.begin(9600);
-
-  //set motor to stop 
-  //analogWrite(pwmA, 0);
-  //analogWrite(pwmB, 0);
-  //delay(2000);
   
 }
 
@@ -53,12 +51,12 @@ void loop() {
   s5 = analogRead(sensor5);
   s6 = analogRead(sensor6);
   
-  //Serial.println(s1);
-  //Serial.println(s2);
-  //Serial.println(s3);
-  //Serial.println(s4);
-  //Serial.println(s5);
-  //Serial.println(s6);
+  Serial.println(s1);
+  Serial.println(s2);
+  Serial.println(s3);
+  Serial.println(s4);
+  Serial.println(s5);
+  Serial.println(s6);
 
   int result = checkInput();
   updateState(result); 
@@ -126,40 +124,45 @@ int checkInput() {
   }
 
 void followLine(int input) {
-    if(input == B110011 || input == B000000 || input == B100001 || input == 0b000001 || input == 0b100000) {
+    if(input == B110011 || input == B000000 || input == B100001 || input == B000001 || input == B100000 || input == B100011 || input == B1100001) {
       Serial.println("maju");
     }
-    else if (input == B110111 || input == B101111 || input == B100111) {
+    else if (input == B110111 || input == B101111 || input == B100111 || input == B001111) {
       Serial.println("belok kiri");
     }
 
-    else if(input == B011111 || input == B001111 || input == B000111) {
+    else if(input == B011111 || input == B001111 || input == B000111 || input == B000011) {
       Serial.println("belok kiri 90 derajat");
     }
 
-    else if(input == B111011 || input ==  B111101 || input == B111001) {
+    else if(input == B111011 || input ==  B111101 || input == B111001 || input == B111100) {
       Serial.println("belok kanan");
     }
 
-    else if(input == B111110 || input == B111100 || input == B111000) {
+    else if(input == B111110 || input == B111100 || input == B111000 || input == B110000) {
       Serial.println("belok kanan 90 derajat");
+    }
+
+    else if(input == B101101 || input == B001100) {
+      Serial.prinltn("belok kiri");
     }
     else if(input == B111111) {
       if(previousState() != B111111) {
+        state3 = previousState();
         Serial.println("Menjalani State Sebelumnya");
       }
       else {
-        Serial.println("berhenti");  
+        Serial.println("muter 180 derajat");  
       }
     }
   }
 
-  void checkState() {
+void checkState() {
     currentState++;
     if(currentState > 2) {
       currentState = 1;
     }
-  }
+}
 
 void updateState(int value) {
   if(currentState == 1) {
